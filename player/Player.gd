@@ -18,7 +18,7 @@ var plant_holding = false
 
 
 signal pick_plant
-signal drop_plant(position)
+signal drop_plant(position, velocity)
 
 
 func _ready():
@@ -62,7 +62,7 @@ func _input(event):
 		StateMachine.travel("flower_drop")
 		$Pickup/Plant.hide()
 		
-		emit_signal("drop_plant", global_position - Vector2(0, -50))
+		emit_signal("drop_plant", global_position, Vector2.ZERO)
 		
 		#$AnimationPlayer.play("flower_picking")
 
@@ -78,7 +78,15 @@ func _physics_process(delta):
 		velocity.x = 0
 	
 	velocity = move_and_slide(velocity, Vector2.UP, true, 4, deg2rad(46))
+
+
+func enemy_touched(vel):
+	plant_holding = false
+	StateMachine.travel("flower_drop")
+	$Pickup/Plant.hide()
 	
+	emit_signal("drop_plant", global_position, vel)
+
 
 func _on_Detection_body_entered(body):
 	if body.name == "Plant":
@@ -87,7 +95,8 @@ func _on_Detection_body_entered(body):
 		StateMachine.travel("flower_detected")
 		plant_detected = body
 	elif body.is_in_group("enemy"):
-		print("enemy")
+		print("enemy touched")
+		enemy_touched(body.velocity)
 
 
 func _on_Detection_body_exited(body):

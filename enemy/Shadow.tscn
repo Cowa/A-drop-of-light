@@ -154,7 +154,7 @@ position = Vector2( 1, 4 )
 shape = SubResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
-amount = 75
+amount = 100
 preprocess = 1.0
 visibility_rect = Rect2( -1000, -1000, 2000, 2000 )
 local_coords = false
@@ -165,9 +165,8 @@ __meta__ = {
 }
 
 [node name="Mouth" type="Sprite" parent="."]
-modulate = Color( 1, 0.8, 0.8, 1 )
-position = Vector2( 0, 53.6608 )
-scale = Vector2( 1, 0.873217 )
+position = Vector2( 0, 52.6779 )
+scale = Vector2( 1, 0.853558 )
 texture = ExtResource( 2 )
 
 [node name="TestPath" type="Path2D" parent="."]

@@ -6,8 +6,8 @@ func _ready():
 	pass
 
 
-func _on_drop_plant(position):
-	$Plant.dropped()
+func _on_drop_plant(position, velocity):
+	$Plant.dropped(velocity)
 	$Plant.position = position
 
 

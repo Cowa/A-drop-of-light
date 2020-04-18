@@ -10,4 +10,4 @@ func _ready():
 
 func _draw():
 	for p in points:
-		draw_circle(p, 10, Color.white)
+		pass#draw_circle(p, 10, Color.white)

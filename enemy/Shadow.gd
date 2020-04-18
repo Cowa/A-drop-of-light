@@ -54,7 +54,7 @@ func update_raycast():
 func _physics_process(dt):
 	velocity = Vector2.ZERO
 	
-	if player:
+	if player and player.plant_holding:
 		velocity = (player.position - position).normalized() * move_speed
 	else:
 		if !patrol_path: return
