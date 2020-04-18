@@ -16,6 +16,10 @@ var plant_holding = false
 ###
 
 
+signal pick_plant
+signal drop_plant(position)
+
+
 func _ready():
 	if not plant_holding:
 		$Pickup/Plant.hide()
@@ -43,11 +47,20 @@ func _input(event):
 #	elif right:
 #		$Camera.offset_h = 1
 	
-	if Input.is_action_just_pressed("ui_select") and plant_detected:
-		plant_detected.queue_free()
+	if Input.is_action_just_pressed("ui_select") and not jumping and plant_detected:
+		emit_signal("pick_plant")
 		plant_holding = true
 		$Pickup/Plant.show()
 		$AnimationPlayer.play("flower_picking")
+	elif Input.is_action_just_pressed("ui_select") and not jumping and plant_holding:
+		plant_holding = false
+		$AnimationPlayer.play_backwards("flower_picking")
+		yield($AnimationPlayer, "animation_finished")
+		$Pickup/Plant.hide()
+		
+		emit_signal("drop_plant", global_position - Vector2(0, -50))
+		
+		#$AnimationPlayer.play("flower_picking")
 
 
 func _physics_process(delta):
@@ -65,12 +78,16 @@ func _physics_process(delta):
 
 func _on_Detection_body_entered(body):
 	if body.name == "Plant":
-		$AnimationPlayer.play("flower_detected")
+		print("detected")
+		$AnimationPlayer.play("flower_detected", 0.1)
 		plant_detected = body
+	elif body.is_in_group("enemy"):
+		print("enemy")
 
 
 func _on_Detection_body_exited(body):
 	if body.name == "Plant":
 		if not plant_holding:
-			$AnimationPlayer.play_backwards("flower_detected")
+			$AnimationPlayer.play_backwards("flower_detected", 0.1)
 		plant_detected = null
+	
