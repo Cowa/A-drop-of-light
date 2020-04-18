@@ -2,7 +2,11 @@ extends KinematicBody2D
 
 export (int) var ray_length = 800
 
-onready var RayCast = $RayCast
+
+onready var VisionArea = $VisionArea
+onready var VisionShape = $VisionArea/Shape
+
+onready var StateMachine = $AnimationTree.get("parameters/playback")
 
 enum {
 	IDLE_STATE,
@@ -20,6 +24,8 @@ var patrol_index = 0
 var velocity = Vector2.ZERO
 
 func _ready():
+	StateMachine.start("root")
+	
 	if patrol_path:
 		patrol_points = get_node(patrol_path).curve.get_baked_points()
 	update_raycast()
@@ -39,7 +45,7 @@ func _ready():
 
 
 func update_raycast():
-	RayCast.cast_to = velocity.normalized() * ray_length
+	pass  #RayCast.cast_to = velocity.normalized() * ray_length
 
 
 func _physics_process(dt):
@@ -52,3 +58,18 @@ func _physics_process(dt):
 	velocity = (target - position).normalized() * move_speed
 	velocity = move_and_slide(velocity)
 	update_raycast()
+
+
+func _on_VisionArea_area_entered(area):
+	if area.is_in_group("player"):
+		StateMachine.travel("player_detected")
+		#$AnimationPlayer.play("player_detected")
+		print("player!")
+	pass # Replace with function body.
+
+
+func _on_VisionArea_area_exited(area):
+	if area.is_in_group("player"):
+		StateMachine.travel("idle")
+		#$AnimationPlayer.play_backwards("player_detected")
+	pass # Replace with function body.

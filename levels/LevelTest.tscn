@@ -72,7 +72,7 @@ position = Vector2( 340, 844 )
 position = Vector2( 566, 910 )
 
 [node name="Shadow" parent="." instance=ExtResource( 5 )]
-position = Vector2( 766, 580 )
+position = Vector2( 1350, 536 )
 patrol_path = NodePath("../Path2D")
 
 [node name="Details" type="Node" parent="."]
