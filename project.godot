@@ -33,6 +33,10 @@ window/dpi/allow_hidpi=true
 2d_physics/layer_3="Plant"
 2d_physics/layer_4="Enemy"
 
+[physics]
+
+2d/default_gravity=2000
+
 [rendering]
 
 environment/default_clear_color=Color( 0.8, 0.8, 0.8, 1 )
