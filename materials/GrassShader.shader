@@ -2,7 +2,7 @@ shader_type canvas_item;
 render_mode unshaded, blend_disabled;
 
 uniform float speed = 1.0;
-uniform float amount = 0.02;
+uniform float amount = 0.10;
 const float PI = 3.14159265359 * 0.5;
 
 void vertex(){

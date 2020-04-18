@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://plant/Plant.tscn" type="PackedScene" id=2]
@@ -6,14 +6,11 @@
 [ext_resource path="res://levels/Structure.gd" type="Script" id=4]
 [ext_resource path="res://enemy/Shadow.tscn" type="PackedScene" id=5]
 [ext_resource path="res://levels/LevelTest.gd" type="Script" id=6]
-[ext_resource path="res://levels/grass.png" type="Texture" id=7]
-[ext_resource path="res://materials/GrassShader.shader" type="Shader" id=8]
+[ext_resource path="res://levels/foliage/Grass.tscn" type="PackedScene" id=7]
+[ext_resource path="res://levels/foliage/Bush1.tscn" type="PackedScene" id=8]
 [ext_resource path="res://levels/PatrolPath.gd" type="Script" id=9]
-
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 8 )
-shader_param/speed = 1.0
-shader_param/amount = 0.02
+[ext_resource path="res://levels/foliage/Bush2.tscn" type="PackedScene" id=10]
+[ext_resource path="res://levels/foliage/mountain.png" type="Texture" id=11]
 
 [sub_resource type="Curve2D" id=2]
 bake_interval = 100.0
@@ -31,7 +28,7 @@ layer = -1
 motion_scale = Vector2( 0, 0 )
 
 [node name="Background" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-modulate = Color( 0.345098, 0.345098, 0.345098, 1 )
+modulate = Color( 0.270588, 0.270588, 0.270588, 1 )
 position = Vector2( 724, -861 )
 scale = Vector2( 126.16, 2.10517 )
 texture = ExtResource( 3 )
@@ -43,13 +40,47 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.05, 0.05 )
+
+[node name="mountain" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 0, 200 )
+texture = ExtResource( 11 )
+region_enabled = true
+region_rect = Rect2( 0, 10.306, 3280.13, 785 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+position = Vector2( 0, 1 )
+polygon = PoolVector2Array( 1102, 143, 982, -368, 852, -509, 571, -315, 271, -281, 385, -760, 1924, -578, 2221, -93, 1871, 178 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Visual" type="Polygon2D" parent="StaticBody2D2/CollisionPolygon2D"]
+position = Vector2( -50, 237 )
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1102, 143, 982, -368, 852, -509, 571, -315, 271, -281, 385, -760, 1924, -578, 2221, -93, 1871, 178 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
 [node name="Structure" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2( 132, 715 )
-polygon = PoolVector2Array( -168, 204, -164, -206, 105, -441, 207, -644, -864, -901, -1482, -466, -1510, 406, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 6063, 1129, 6105, 637, 6642, -1335, 5488, 280, 4122, 52, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 433, 265 )
+modulate = Color( 0.0546875, 0.0546875, 0.0546875, 1 )
+position = Vector2( 129, 716 )
+polygon = PoolVector2Array( -168, 204, -164, -206, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -864, -901, -1482, -466, -1510, 406, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 6063, 1129, 6105, 637, 6642, -1335, 5488, 280, 4122, 52, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 433, 265 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
@@ -57,13 +88,13 @@ __meta__ = {
 
 [node name="Visual" type="Polygon2D" parent="StaticBody2D/Structure"]
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
-polygon = PoolVector2Array( -168, 204, -164, -206, 105, -441, 207, -644, -864, -901, -1482, -466, -1510, 406, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 6063, 1129, 6105, 637, 6642, -1335, 5488, 280, 4122, 52, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 433, 265 )
+polygon = PoolVector2Array( -168, 204, -164, -206, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -864, -901, -1482, -466, -1510, 406, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 6063, 1129, 6105, 637, 6642, -1335, 5488, 280, 4122, 52, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 433, 265 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 74, 786 )
+position = Vector2( 69, 788 )
 
 [node name="Plant" parent="." instance=ExtResource( 2 )]
 position = Vector2( 566, 910 )
@@ -74,27 +105,35 @@ patrol_path = NodePath("../Path2D")
 
 [node name="Details" type="Node" parent="."]
 
-[node name="Grass" type="Sprite" parent="Details"]
-material = SubResource( 1 )
-position = Vector2( 266.343, 949.674 )
-rotation = 0.109781
+[node name="Grass" parent="Details" instance=ExtResource( 7 )]
+position = Vector2( 277, 947 )
+rotation = 0.0972745
+
+[node name="Grass2" parent="Details" instance=ExtResource( 7 )]
+position = Vector2( 924, 927 )
+rotation = -0.155899
 scale = Vector2( 0.999342, 0.734494 )
-texture = ExtResource( 7 )
-region_enabled = true
-region_rect = Rect2( -303, 9, 630, 58 )
+region_rect = Rect2( -303, 9, 740, 58 )
 
-[node name="Grass2" type="Sprite" parent="Details"]
-material = SubResource( 1 )
-position = Vector2( 928.796, 922.987 )
-rotation = -0.158257
-scale = Vector2( 0.999342, 0.825865 )
-texture = ExtResource( 7 )
-region_enabled = true
-region_rect = Rect2( -407, 9, 734, 58 )
+[node name="Grass3" parent="Details" instance=ExtResource( 7 )]
+position = Vector2( 1594, 873 )
+rotation = 0.0373855
+scale = Vector2( 0.999342, 0.734494 )
+region_rect = Rect2( -345.024, 9, 571, 58 )
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-position = Vector2( 0, 1 )
-color = Color( 0.658824, 0.658824, 0.658824, 1 )
+[node name="Grass4" parent="Details" instance=ExtResource( 7 )]
+position = Vector2( 2169, 853 )
+rotation = -0.195485
+scale = Vector2( 0.999342, 0.734494 )
+region_rect = Rect2( -345.024, 9, 571, 58 )
+
+[node name="Bush1" parent="Details" instance=ExtResource( 8 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 1808, 887 )
+
+[node name="Bush2" parent="Details" instance=ExtResource( 10 )]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 2548, 782 )
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource( 2 )

@@ -1,10 +1,11 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://player/body_player.png" type="Texture" id=1]
 [ext_resource path="res://player/arm_player.png" type="Texture" id=2]
 [ext_resource path="res://player/eye_player.png" type="Texture" id=3]
 [ext_resource path="res://player/Player.gd" type="Script" id=4]
 [ext_resource path="res://plant/Plant.tscn" type="PackedScene" id=5]
+[ext_resource path="res://plant/firefly-light.png" type="Texture" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 48.0
@@ -126,7 +127,7 @@ tracks/8/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 51 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=24]
 resource_name = "flower_drop"
 length = 0.25
 step = 0.05
@@ -239,7 +240,7 @@ tracks/8/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 51 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=25]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -327,7 +328,7 @@ tracks/6/keys = {
 "values": [ Vector2( 0, 51 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=26]
 resource_name = "flower_undetected"
 length = 0.25
 step = 0.05
@@ -553,7 +554,7 @@ tracks/8/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=27]
 resource_name = "plant_holding"
 length = 0.25
 step = 0.05
@@ -761,11 +762,11 @@ smoothing_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/flower_detected = SubResource( 3 )
-anims/flower_drop = SubResource( 4 )
-anims/flower_picking = SubResource( 5 )
-anims/flower_undetected = SubResource( 6 )
+anims/flower_drop = SubResource( 24 )
+anims/flower_picking = SubResource( 25 )
+anims/flower_undetected = SubResource( 26 )
 anims/idle = SubResource( 7 )
-anims/plant_holding = SubResource( 8 )
+anims/plant_holding = SubResource( 27 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 22 )
@@ -775,5 +776,13 @@ process_mode = 0
 parameters/playback = SubResource( 23 )
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 6 )
+texture_scale = 15.0
+color = Color( 0, 0, 0, 1 )
+energy = 0.2
+mode = 2
+range_layer_min = -1
 [connection signal="body_entered" from="Detection" to="." method="_on_Detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_Detection_body_exited"]
