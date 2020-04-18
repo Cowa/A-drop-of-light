@@ -8,6 +8,8 @@ onready var VisionShape = $VisionArea/Shape
 
 onready var StateMachine = $AnimationTree.get("parameters/playback")
 
+var player = null
+
 enum {
 	IDLE_STATE,
 	WANDERING_STATE
@@ -17,8 +19,9 @@ var state = IDLE_STATE
 
 var direction = Vector2(0, 0)
 
-export (int) var move_speed = 200
+export (int) var move_speed = 250
 export (NodePath) var patrol_path
+
 var patrol_points
 var patrol_index = 0
 var velocity = Vector2.ZERO
@@ -49,27 +52,31 @@ func update_raycast():
 
 
 func _physics_process(dt):
-	if !patrol_path:
-		return
-	var target = patrol_points[patrol_index]
-	if position.distance_to(target) < 10:
-		patrol_index = wrapi(patrol_index + 1, 0, patrol_points.size())
-		target = patrol_points[patrol_index]
-	velocity = (target - position).normalized() * move_speed
+	velocity = Vector2.ZERO
+	
+	if player:
+		velocity = (player.position - position).normalized() * move_speed
+	else:
+		if !patrol_path: return
+		var target = patrol_points[patrol_index]
+		print(position.distance_to(target))
+		if position.distance_to(target) <= 25:
+			patrol_index = wrapi(patrol_index + 1, 0, patrol_points.size())
+			target = patrol_points[patrol_index]
+		velocity = (target - position).normalized() * (move_speed / 2)
+		velocity = move_and_slide(velocity)
+		update_raycast()
+	
 	velocity = move_and_slide(velocity)
-	update_raycast()
 
 
 func _on_VisionArea_area_entered(area):
 	if area.is_in_group("player"):
 		StateMachine.travel("player_detected")
-		#$AnimationPlayer.play("player_detected")
-		print("player!")
-	pass # Replace with function body.
+		player = area.get_parent()
 
 
 func _on_VisionArea_area_exited(area):
 	if area.is_in_group("player"):
 		StateMachine.travel("idle")
-		#$AnimationPlayer.play_backwards("player_detected")
-	pass # Replace with function body.
+		player = null

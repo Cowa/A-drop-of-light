@@ -5,14 +5,14 @@
 [ext_resource path="res://plant/firefly-light.png" type="Texture" id=3]
 [ext_resource path="res://player/eye_player.png" type="Texture" id=4]
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.63245, 1 )
 colors = PoolColorArray( 0.882353, 0.87451, 0.258824, 0.14902, 0.933333, 0.92549, 0.568627, 0.584314, 1, 1, 1, 0 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 21, 20 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 29, 46 )
 
 [node name="Plant" type="RigidBody2D"]
@@ -36,11 +36,11 @@ emission_shape = 1
 emission_sphere_radius = 10.0
 gravity = Vector2( 0, -100 )
 scale_amount = 0.5
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 1 )
 
 [node name="PhysicsCollision" type="CollisionShape2D" parent="."]
 position = Vector2( -1, 26 )
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
 [node name="PickupShape" type="Area2D" parent="."]
 visible = false
@@ -49,11 +49,11 @@ collision_mask = 0
 
 [node name="Shape" type="CollisionShape2D" parent="PickupShape"]
 position = Vector2( 0, 2 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Light" type="Light2D" parent="."]
-position = Vector2( -1.5, -7.00002 )
-scale = Vector2( 0.4375, 0.475 )
+position = Vector2( -1.52588e-05, 7.99998 )
+scale = Vector2( 0.783333, 0.741667 )
 texture = ExtResource( 3 )
 color = Color( 0.670588, 0.647059, 0.376471, 1 )
 range_layer_min = -1

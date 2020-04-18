@@ -16,8 +16,9 @@ shader_param/speed = 1.0
 shader_param/amount = 0.02
 
 [sub_resource type="Curve2D" id=2]
+bake_interval = 100.0
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 898, 575, 0, 0, 0, 0, 1096, 593, 0, 0, 0, 0, 1236, 722, 0, 0, 0, 0, 1421, 633, 0, 0, 0, 0, 1320, 750, 0, 0, 0, 0, 1034, 729, 0, 0, 0, 0, 894, 704 )
+"points": PoolVector2Array( 0, 0, 0, 0, 758, 548, 0, 0, 0, 0, 1096, 593, 0, 0, 0, 0, 1279, 606, 0, 0, 0, 0, 1667, 656 )
 }
 
 [node name="LevelTest" type="Node"]
@@ -66,13 +67,13 @@ __meta__ = {
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 340, 844 )
+position = Vector2( 74, 786 )
 
 [node name="Plant" parent="." instance=ExtResource( 2 )]
 position = Vector2( 566, 910 )
 
 [node name="Shadow" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1350, 536 )
+position = Vector2( 766, 511 )
 patrol_path = NodePath("../Path2D")
 
 [node name="Details" type="Node" parent="."]
@@ -105,4 +106,4 @@ script = ExtResource( 9 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2( 898, 575 )
-rotation = 0.0906838
+rotation = 0.0903192
