@@ -59,7 +59,6 @@ func _physics_process(dt):
 	else:
 		if !patrol_path: return
 		var target = patrol_points[patrol_index]
-		print(position.distance_to(target))
 		if position.distance_to(target) <= 25:
 			patrol_index = wrapi(patrol_index + 1, 0, patrol_points.size())
 			target = patrol_points[patrol_index]

@@ -6,6 +6,7 @@ export (int) var run_speed = 500
 export (int) var jump_speed = -800
 export (int) var gravity = 2000
 
+onready var StateMachine = $AnimationTree.get("parameters/playback")
 
 var velocity = Vector2.ZERO
 var jumping = false
@@ -21,6 +22,7 @@ signal drop_plant(position)
 
 
 func _ready():
+	StateMachine.start("root")
 	if not plant_holding:
 		$Pickup/Plant.hide()
 
@@ -51,11 +53,13 @@ func _input(event):
 		emit_signal("pick_plant")
 		plant_holding = true
 		$Pickup/Plant.show()
-		$AnimationPlayer.play("flower_picking")
+		StateMachine.travel("flower_picking")
+		#$AnimationPlayer.play("flower_picking")
 	elif Input.is_action_just_pressed("ui_select") and not jumping and plant_holding:
 		plant_holding = false
-		$AnimationPlayer.play_backwards("flower_picking")
-		yield($AnimationPlayer, "animation_finished")
+		#$AnimationPlayer.play_backwards("flower_picking")
+		#yield($AnimationPlayer, "animation_finished")
+		StateMachine.travel("flower_drop")
 		$Pickup/Plant.hide()
 		
 		emit_signal("drop_plant", global_position - Vector2(0, -50))
@@ -79,7 +83,8 @@ func _physics_process(delta):
 func _on_Detection_body_entered(body):
 	if body.name == "Plant":
 		print("detected")
-		$AnimationPlayer.play("flower_detected", 0.1)
+		#$AnimationPlayer.play("flower_detected", 0.1)
+		StateMachine.travel("flower_detected")
 		plant_detected = body
 	elif body.is_in_group("enemy"):
 		print("enemy")
@@ -88,6 +93,6 @@ func _on_Detection_body_entered(body):
 func _on_Detection_body_exited(body):
 	if body.name == "Plant":
 		if not plant_holding:
-			$AnimationPlayer.play_backwards("flower_detected", 0.1)
+			StateMachine.travel("flower_undetected")
 		plant_detected = null
 	

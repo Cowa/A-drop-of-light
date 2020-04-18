@@ -166,8 +166,8 @@ __meta__ = {
 
 [node name="Mouth" type="Sprite" parent="."]
 modulate = Color( 1, 0.8, 0.8, 1 )
-position = Vector2( 0, 50.3389 )
-scale = Vector2( 1, 0.806777 )
+position = Vector2( 0, 53.6608 )
+scale = Vector2( 1, 0.873217 )
 texture = ExtResource( 2 )
 
 [node name="TestPath" type="Path2D" parent="."]
