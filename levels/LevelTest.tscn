@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
+
+[node name="LevelTest" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2( 134, 712 )
+polygon = PoolVector2Array( -131, 221, -135, 363, 546, 367, 1784, 365, 1780, 195, 1524, 155, 1181, 150, 433, 265 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+run_speed = 500
+jump_speed = -800
+gravity = 2000
