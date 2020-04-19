@@ -33,7 +33,6 @@ func _timer_timeout():
 	yield($Tween, "tween_all_completed")
 	
 	if PowerLight.texture_scale <= 0.00001:
-		print("dead")
 		emit_signal("dead")
 	else:
 		start_timer()
