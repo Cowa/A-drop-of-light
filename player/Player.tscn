@@ -13,7 +13,7 @@ radius = 48.0
 height = 92.0
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 48, 66 )
+extents = Vector2( 39, 61 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "flower_detected"
@@ -800,7 +800,7 @@ __meta__ = {
 collision_mask = 12
 
 [node name="Shape" type="CollisionShape2D" parent="Detection"]
-position = Vector2( 1, 28 )
+position = Vector2( 1, 38 )
 shape = SubResource( 2 )
 
 [node name="Camera" type="Camera2D" parent="."]

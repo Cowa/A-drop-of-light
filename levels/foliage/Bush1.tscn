@@ -6,7 +6,7 @@
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
 shader_param/speed = 1.0
-shader_param/amount = 0.1
+shader_param/amount = 0.25
 
 [node name="Bush1" type="Sprite"]
 material = SubResource( 1 )

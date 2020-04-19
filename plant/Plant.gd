@@ -77,6 +77,12 @@ func more_life():
 	$Timer.start()
 
 
+func endless_life():
+	$Timer.stop()
+	$Tween.interpolate_property(PowerLight, "texture_scale", PowerLight.texture_scale, 50, 5, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$Tween.start()
+
+
 func _on_PickupShape_area_entered(area):
 	if first_detect and not player_attached:
 		$WelcomeAudio.play()

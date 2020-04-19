@@ -34,7 +34,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 500, 500 )
+extents = Vector2( 500, 326.006 )
 
 [sub_resource type="Animation" id=7]
 loop = true
@@ -167,8 +167,8 @@ __meta__ = {
 }
 
 [node name="Mouth" type="Sprite" parent="."]
-position = Vector2( 0, 53.3268 )
-scale = Vector2( 1, 0.866535 )
+position = Vector2( 0, 58.3336 )
+scale = Vector2( 1, 0.966673 )
 texture = ExtResource( 2 )
 
 [node name="TestPath" type="Path2D" parent="."]
@@ -181,10 +181,10 @@ position = Vector2( 127.804, 268.148 )
 rotation = -0.207811
 
 [node name="VisionArea" type="Area2D" parent="."]
-visible = false
 
 [node name="Shape" type="CollisionShape2D" parent="VisionArea"]
-position = Vector2( 14.1541, 22.9055 )
+visible = false
+position = Vector2( 15.0138, 150.903 )
 shape = SubResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

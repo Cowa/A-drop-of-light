@@ -80,7 +80,7 @@ func _physics_process(delta):
 	if is_on_floor() and not input_movement:
 		velocity.x = 0
 	
-	velocity = move_and_slide(velocity, Vector2.UP, true, 4, deg2rad(46))
+	velocity = move_and_slide(velocity, Vector2.UP, true, 32, deg2rad(46))
 
 
 func enemy_touched(vel):
