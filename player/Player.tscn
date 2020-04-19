@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://player/body_player.png" type="Texture" id=1]
 [ext_resource path="res://player/arm_player.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://player/Player.gd" type="Script" id=4]
 [ext_resource path="res://plant/Plant.tscn" type="PackedScene" id=5]
 [ext_resource path="res://plant/firefly-light.png" type="Texture" id=6]
+[ext_resource path="res://assets/hit.wav" type="AudioStream" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 48.0
@@ -643,7 +644,7 @@ tracks/6/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=9]
 resource_name = "walking"
 length = 0.5
 loop = true
@@ -685,65 +686,65 @@ tracks/2/keys = {
 "values": [ Vector2( 0, -64 ), Vector2( 0, -54 ), Vector2( 0, -64 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=9]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "flower_detected"
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "flower_drop"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "flower_picking"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "flower_undetected"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "plant_holding"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=15]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=16]
 switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=17]
 switch_mode = 2
-auto_advance = true
-xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=18]
 switch_mode = 2
 auto_advance = true
+xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=19]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=20]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=21]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
 switch_mode = 2
 auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachine" id=22]
-states/flower_detected/node = SubResource( 9 )
+[sub_resource type="AnimationNodeStateMachine" id=23]
+states/flower_detected/node = SubResource( 10 )
 states/flower_detected/position = Vector2( 443.5, 65 )
-states/flower_drop/node = SubResource( 10 )
+states/flower_drop/node = SubResource( 11 )
 states/flower_drop/position = Vector2( 100.25, 248 )
-states/flower_picking/node = SubResource( 11 )
+states/flower_picking/node = SubResource( 12 )
 states/flower_picking/position = Vector2( 442.25, 192.5 )
-states/flower_undetected/node = SubResource( 12 )
+states/flower_undetected/node = SubResource( 13 )
 states/flower_undetected/position = Vector2( 383.375, -77.5 )
-states/idle/node = SubResource( 13 )
+states/idle/node = SubResource( 14 )
 states/idle/position = Vector2( 98.5, 60 )
-states/plant_holding/node = SubResource( 14 )
+states/plant_holding/node = SubResource( 15 )
 states/plant_holding/position = Vector2( 349.5, 293.5 )
-transitions = [ "idle", "flower_detected", SubResource( 15 ), "flower_detected", "flower_picking", SubResource( 16 ), "flower_drop", "idle", SubResource( 17 ), "flower_picking", "plant_holding", SubResource( 18 ), "plant_holding", "flower_drop", SubResource( 19 ), "flower_detected", "flower_undetected", SubResource( 20 ), "flower_undetected", "idle", SubResource( 21 ) ]
+transitions = [ "idle", "flower_detected", SubResource( 16 ), "flower_detected", "flower_picking", SubResource( 17 ), "flower_drop", "idle", SubResource( 18 ), "flower_picking", "plant_holding", SubResource( 19 ), "plant_holding", "flower_drop", SubResource( 20 ), "flower_detected", "flower_undetected", SubResource( 21 ), "flower_undetected", "idle", SubResource( 22 ) ]
 start_node = "idle"
 graph_offset = Vector2( -183.915, 17.8068 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=23]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=24]
 
 [node name="Player" type="KinematicBody2D" groups=[
 "player",
@@ -779,6 +780,7 @@ position = Vector2( 0, 0 )
 collision_layer = 0
 collision_mask = 0
 mode = 1
+player_attached = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
@@ -791,7 +793,6 @@ __meta__ = {
 [node name="Detection" type="Area2D" parent="." groups=[
 "player",
 ]]
-visible = false
 collision_mask = 12
 
 [node name="Shape" type="CollisionShape2D" parent="Detection"]
@@ -811,14 +812,14 @@ anims/flower_picking = SubResource( 5 )
 anims/flower_undetected = SubResource( 6 )
 anims/idle = SubResource( 7 )
 anims/plant_holding = SubResource( 8 )
-anims/walking = SubResource( 24 )
+anims/walking = SubResource( 9 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 22 )
+tree_root = SubResource( 23 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 process_mode = 0
-parameters/playback = SubResource( 23 )
+parameters/playback = SubResource( 24 )
 
 [node name="Timer" type="Timer" parent="."]
 
@@ -833,5 +834,9 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+volume_db = 0.3
 [connection signal="body_entered" from="Detection" to="." method="_on_Detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_Detection_body_exited"]

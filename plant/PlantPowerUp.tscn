@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://assets/recharge.wav" type="AudioStream" id=1]
 [ext_resource path="res://levels/Structure.gd" type="Script" id=2]
 [ext_resource path="res://plant/PlantPowerUp.gd" type="Script" id=3]
 [ext_resource path="res://plant/plant-light.png" type="Texture" id=4]
@@ -39,4 +40,8 @@ texture = ExtResource( 4 )
 color = Color( 0.576471, 0.72549, 0.396078, 1 )
 energy = 2.5
 range_layer_min = -1
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+volume_db = 6.0
 [connection signal="body_entered" from="PlantDetect" to="." method="_on_PlantDetect_body_entered" flags=6]

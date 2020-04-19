@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/chasing.wav-db6f24ff1d2dcb13d9c110844ef60acf.sample"
+
+[deps]
+
+source_file="res://assets/chasing.wav"
+dest_files=[ "res://.import/chasing.wav-db6f24ff1d2dcb13d9c110844ef60acf.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

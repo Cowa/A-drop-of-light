@@ -2,6 +2,10 @@ extends RigidBody2D
 
 var pickable = true
 
+var first_detect = true
+
+export (bool) var player_attached = false
+
 onready var PowerLight = $Light
 
 signal dead
@@ -66,5 +70,21 @@ func change_mode(n_mode, velocity):
 
 
 func more_life():
+	$Timer.stop()
 	$Tween.interpolate_property(PowerLight, "texture_scale", PowerLight.texture_scale, PowerLight.texture_scale + 1, 0.75, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 	$Tween.start()
+	yield($Tween, "tween_all_completed")
+	$Timer.start()
+
+
+func _on_PickupShape_area_entered(area):
+	if first_detect and not player_attached:
+		$WelcomeAudio.play()
+		first_detect = false
+
+
+
+func _on_Plant_body_entered(body):
+	if not $HitAudio.playing:
+		$HitAudio.play()
+	pass # Replace with function body.

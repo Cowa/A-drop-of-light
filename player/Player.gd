@@ -96,6 +96,7 @@ func _on_Detection_body_entered(body):
 		StateMachine.travel("flower_detected")
 		plant_detected = body
 	elif body.is_in_group("enemy"):
+		$AudioPlayer.play()
 		enemy_touched(body.velocity)
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://plant/Plant.tscn" type="PackedScene" id=2]
@@ -14,11 +14,12 @@
 [ext_resource path="res://plant/plant-light.png" type="Texture" id=12]
 [ext_resource path="res://plant/PlantPowerUp.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/ambient.wav" type="AudioStream" id=14]
+[ext_resource path="res://levels/HelperHold.tscn" type="PackedScene" id=15]
 
 [sub_resource type="Curve2D" id=1]
 bake_interval = 100.0
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 3169, -156, 0, 0, 0, 0, 2761, -98, 0, 0, 0, 0, 2486, 31, 0, 0, 0, 0, 2276, -127 )
+"points": PoolVector2Array( 0, 0, 0, 0, 4261, -310, 0, 0, 0, 0, 4032, -245, 0, 0, 0, 0, 3882, -352, 0, 0, 0, 0, 3958, -508 )
 }
 
 [sub_resource type="Curve2D" id=2]
@@ -130,10 +131,10 @@ __meta__ = {
 position = Vector2( -610, 744 )
 
 [node name="Plant" parent="." instance=ExtResource( 2 )]
-position = Vector2( 948, 737 )
+position = Vector2( 948, 738 )
 
 [node name="Shadow" parent="." instance=ExtResource( 5 )]
-position = Vector2( 2641, -265 )
+position = Vector2( 4258, -528 )
 patrol_path = NodePath("../Path2D")
 
 [node name="Shadow2" parent="." instance=ExtResource( 5 )]
@@ -202,8 +203,8 @@ curve = SubResource( 1 )
 script = ExtResource( 9 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2( 3169, -156 )
-rotation = 3.00038
+position = Vector2( 4261, -310 )
+rotation = 2.86501
 
 [node name="Path2D2" type="Path2D" parent="."]
 curve = SubResource( 2 )
@@ -230,3 +231,27 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "opening"
 anims/opening = SubResource( 3 )
+
+[node name="HelperHold" parent="." instance=ExtResource( 15 )]
+position = Vector2( 728, 454 )
+
+[node name="HelperHold2" parent="." instance=ExtResource( 15 )]
+position = Vector2( 1575, 546 )
+
+[node name="Label" parent="HelperHold2" index="0"]
+text = "'Space' to Drop
+"
+
+[node name="HelperHold3" parent="." instance=ExtResource( 15 )]
+position = Vector2( 2896, 427 )
+
+[node name="Label" parent="HelperHold3" index="0"]
+margin_left = -21.0
+margin_right = 459.0
+margin_bottom = 99.0
+text = "Drop to Recharge
+"
+
+[editable path="HelperHold2"]
+
+[editable path="HelperHold3"]

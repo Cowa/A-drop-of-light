@@ -55,8 +55,14 @@ func _physics_process(dt):
 	velocity = Vector2.ZERO
 	
 	if player and player.plant_holding:
+		if not $ChasingAudio.playing:
+			$WanderingAudio.stop()
+			$ChasingAudio.play()
 		velocity = (player.position - position).normalized() * move_speed
 	else:
+		if not $WanderingAudio.playing:
+			$WanderingAudio.play()
+			$ChasingAudio.stop()
 		if !patrol_path: return
 		var target = patrol_points[patrol_index]
 		if position.distance_to(target) <= 25:
