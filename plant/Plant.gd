@@ -19,7 +19,7 @@ func stop_timer():
 
 
 func _timer_timeout():
-	$Tween.interpolate_property(PowerLight, "texture_scale", PowerLight.texture_scale, PowerLight.texture_scale - 0.5, 0.5, Tween.TRANS_BACK, Tween.EASE_OUT)
+	$Tween.interpolate_property(PowerLight, "texture_scale", PowerLight.texture_scale, max(PowerLight.texture_scale - 0.5, 0), 0.5, Tween.TRANS_BACK, Tween.EASE_OUT)
 	$Tween.start()
 	
 	yield($Tween, "tween_all_completed")
@@ -66,4 +66,5 @@ func change_mode(n_mode, velocity):
 
 
 func more_life():
-	PowerLight.texture_scale += 0.5
+	$Tween.interpolate_property(PowerLight, "texture_scale", PowerLight.texture_scale, PowerLight.texture_scale + 1, 0.75, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$Tween.start()

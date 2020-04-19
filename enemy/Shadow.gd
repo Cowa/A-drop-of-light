@@ -19,7 +19,7 @@ var state = IDLE_STATE
 
 var direction = Vector2(0, 0)
 
-export (int) var move_speed = 250
+export (int) var move_speed = 350
 export (NodePath) var patrol_path
 
 var patrol_points

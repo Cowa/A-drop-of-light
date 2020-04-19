@@ -14,6 +14,7 @@ var input_movement = false
 
 var plant_detected = false
 var plant_holding = false
+var first_pickup = true
 
 var plant_world = null
 
@@ -53,13 +54,17 @@ func _input(event):
 		plant_holding = true
 		Plant.show()
 		Plant.sync_with(plant_world)
-		Plant.start_timer()
+		
+		if first_pickup:
+			Plant.start_timer()
+		
+		first_pickup = false
 		StateMachine.travel("flower_picking")
 	elif Input.is_action_just_pressed("ui_select") and not jumping and plant_holding:
 		plant_holding = false
 		StateMachine.travel("flower_drop")
 		Plant.hide()
-		Plant.stop_timer()
+		#Plant.stop_timer()
 		plant_world.sync_with(Plant)
 		
 		emit_signal("drop_plant", global_position, Vector2.ZERO)
