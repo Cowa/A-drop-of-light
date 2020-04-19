@@ -127,7 +127,7 @@ tracks/8/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 51 ) ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=4]
 resource_name = "flower_drop"
 length = 0.25
 step = 0.05
@@ -240,7 +240,7 @@ tracks/8/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 51 ) ]
 }
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id=5]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -328,7 +328,7 @@ tracks/6/keys = {
 "values": [ Vector2( 0, 51 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=26]
+[sub_resource type="Animation" id=6]
 resource_name = "flower_undetected"
 length = 0.25
 step = 0.05
@@ -443,7 +443,7 @@ tracks/8/keys = {
 
 [sub_resource type="Animation" id=7]
 resource_name = "idle"
-length = 0.25
+length = 0.3
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:scale")
@@ -554,7 +554,7 @@ tracks/8/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=27]
+[sub_resource type="Animation" id=8]
 resource_name = "plant_holding"
 length = 0.25
 step = 0.05
@@ -662,6 +662,7 @@ animation = "idle"
 animation = "plant_holding"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=15]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=16]
 switch_mode = 2
@@ -762,11 +763,11 @@ smoothing_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/flower_detected = SubResource( 3 )
-anims/flower_drop = SubResource( 24 )
-anims/flower_picking = SubResource( 25 )
-anims/flower_undetected = SubResource( 26 )
+anims/flower_drop = SubResource( 4 )
+anims/flower_picking = SubResource( 5 )
+anims/flower_undetected = SubResource( 6 )
 anims/idle = SubResource( 7 )
-anims/plant_holding = SubResource( 27 )
+anims/plant_holding = SubResource( 8 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 22 )
@@ -784,5 +785,9 @@ color = Color( 0, 0, 0, 1 )
 energy = 0.2
 mode = 2
 range_layer_min = -1
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 [connection signal="body_entered" from="Detection" to="." method="_on_Detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_Detection_body_exited"]

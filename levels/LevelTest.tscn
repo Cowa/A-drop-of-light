@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://plant/Plant.tscn" type="PackedScene" id=2]
@@ -11,11 +11,13 @@
 [ext_resource path="res://levels/PatrolPath.gd" type="Script" id=9]
 [ext_resource path="res://levels/foliage/Bush2.tscn" type="PackedScene" id=10]
 [ext_resource path="res://levels/foliage/mountain.png" type="Texture" id=11]
+[ext_resource path="res://plant/plant-light.png" type="Texture" id=12]
+[ext_resource path="res://plant/PlantPowerUp.tscn" type="PackedScene" id=13]
 
-[sub_resource type="Curve2D" id=2]
+[sub_resource type="Curve2D" id=1]
 bake_interval = 100.0
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 657, 248, 0, 0, 0, 0, 1090, 302, 0, 0, 0, 0, 1321, 327, 0, 0, 0, 0, 1679, 291 )
+"points": PoolVector2Array( 0, 0, 0, 0, 3169, -156, 0, 0, 0, 0, 2761, -98, 0, 0, 0, 0, 2486, 31, 0, 0, 0, 0, 2276, -127 )
 }
 
 [node name="LevelTest" type="Node"]
@@ -62,7 +64,6 @@ __meta__ = {
 }
 
 [node name="Visual" type="Polygon2D" parent="StaticBody2D2/CollisionPolygon2D"]
-position = Vector2( -50, 237 )
 color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( 1102, 143, 982, -368, 852, -509, 571, -315, 271, -281, 385, -760, 1924, -578, 2221, -93, 1871, 178 )
 __meta__ = {
@@ -72,15 +73,11 @@ __meta__ = {
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
 
 [node name="Structure" type="CollisionPolygon2D" parent="StaticBody2D"]
 modulate = Color( 0.0546875, 0.0546875, 0.0546875, 1 )
 position = Vector2( 129, 716 )
-polygon = PoolVector2Array( -168, 204, -164, -206, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -864, -901, -1482, -466, -1510, 406, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 6063, 1129, 6105, 637, 6642, -1335, 5488, 280, 4122, 52, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 433, 265 )
+polygon = PoolVector2Array( -830, 153, -1503, -963, -1146, -1175, -610, -491, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -967, -1440, -1954, -1060, -2162, 789, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 6063, 1129, 6105, 637, 6642, -1335, 5488, 280, 4122, 52, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 974, 169, 949.793, 102.431, 913, 70, 727, 78, 697.57, 139.135, 699.821, 219.568, 433, 265 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
@@ -88,19 +85,19 @@ __meta__ = {
 
 [node name="Visual" type="Polygon2D" parent="StaticBody2D/Structure"]
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
-polygon = PoolVector2Array( -168, 204, -164, -206, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -864, -901, -1482, -466, -1510, 406, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 6063, 1129, 6105, 637, 6642, -1335, 5488, 280, 4122, 52, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 433, 265 )
+polygon = PoolVector2Array( -830, 153, -1503, -963, -1146, -1175, -610, -491, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -967, -1440, -1954, -1060, -2162, 789, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 6063, 1129, 6105, 637, 6642, -1335, 5488, 280, 4122, 52, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 974, 169, 953, 68, 696, 83, 699.821, 219.568, 433, 265 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 69, 788 )
+position = Vector2( -629, 774 )
 
 [node name="Plant" parent="." instance=ExtResource( 2 )]
-position = Vector2( 566, 910 )
+position = Vector2( 948, 737 )
 
 [node name="Shadow" parent="." instance=ExtResource( 5 )]
-position = Vector2( 766, 511 )
+position = Vector2( 2641, -265 )
 patrol_path = NodePath("../Path2D")
 
 [node name="Details" type="Node" parent="."]
@@ -112,19 +109,16 @@ rotation = 0.0972745
 [node name="Grass2" parent="Details" instance=ExtResource( 7 )]
 position = Vector2( 924, 927 )
 rotation = -0.155899
-scale = Vector2( 0.999342, 0.734494 )
 region_rect = Rect2( -303, 9, 740, 58 )
 
 [node name="Grass3" parent="Details" instance=ExtResource( 7 )]
 position = Vector2( 1594, 873 )
 rotation = 0.0373855
-scale = Vector2( 0.999342, 0.734494 )
 region_rect = Rect2( -345.024, 9, 571, 58 )
 
 [node name="Grass4" parent="Details" instance=ExtResource( 7 )]
 position = Vector2( 2169, 853 )
 rotation = -0.195485
-scale = Vector2( 0.999342, 0.734494 )
 region_rect = Rect2( -345.024, 9, 571, 58 )
 
 [node name="Bush1" parent="Details" instance=ExtResource( 8 )]
@@ -136,9 +130,30 @@ modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 2548, 782 )
 
 [node name="Path2D" type="Path2D" parent="."]
-curve = SubResource( 2 )
+curve = SubResource( 1 )
 script = ExtResource( 9 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2( 657, 248 )
-rotation = 0.124067
+position = Vector2( 3169, -156 )
+rotation = 3.00038
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -1070.5, -133 )
+scale = Vector2( 7.54, 7.92 )
+texture = ExtResource( 12 )
+color = Color( 0.635294, 0.635294, 0.635294, 1 )
+range_layer_min = -1
+
+[node name="Light2D2" type="Light2D" parent="."]
+position = Vector2( 648, -321 )
+scale = Vector2( 7.54, 7.92 )
+texture = ExtResource( 12 )
+color = Color( 0.635294, 0.635294, 0.635294, 1 )
+range_layer_min = -1
+
+[node name="PlantPowerUp" parent="." instance=ExtResource( 13 )]
+position = Vector2( 2082, 823 )
+rotation = -0.357675
+
+[node name="PlantPowerUp2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 3108, 654 )

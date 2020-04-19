@@ -7,13 +7,16 @@ export (int) var jump_speed = -800
 export (int) var gravity = 2000
 
 onready var StateMachine = $AnimationTree.get("parameters/playback")
-
+onready var Plant = $Pickup/Plant
 var velocity = Vector2.ZERO
 var jumping = false
 var input_movement = false
 
 var plant_detected = false
 var plant_holding = false
+
+var plant_world = null
+
 ###
 
 
@@ -24,7 +27,7 @@ signal drop_plant(position, velocity)
 func _ready():
 	StateMachine.start("root")
 	if not plant_holding:
-		$Pickup/Plant.hide()
+		Plant.hide()
 
 
 func _input(event):
@@ -44,27 +47,22 @@ func _input(event):
 	if left and not is_on_wall():
 		velocity.x -= run_speed
 	
-#	if left:
-#		$Camera.offset_h = -1
-#	elif right:
-#		$Camera.offset_h = 1
-	
 	if Input.is_action_just_pressed("ui_select") and not jumping and plant_detected:
+		plant_world = plant_detected
 		emit_signal("pick_plant")
 		plant_holding = true
-		$Pickup/Plant.show()
+		Plant.show()
+		Plant.sync_with(plant_world)
+		Plant.start_timer()
 		StateMachine.travel("flower_picking")
-		#$AnimationPlayer.play("flower_picking")
 	elif Input.is_action_just_pressed("ui_select") and not jumping and plant_holding:
 		plant_holding = false
-		#$AnimationPlayer.play_backwards("flower_picking")
-		#yield($AnimationPlayer, "animation_finished")
 		StateMachine.travel("flower_drop")
-		$Pickup/Plant.hide()
+		Plant.hide()
+		Plant.stop_timer()
+		plant_world.sync_with(Plant)
 		
 		emit_signal("drop_plant", global_position, Vector2.ZERO)
-		
-		#$AnimationPlayer.play("flower_picking")
 
 
 func _physics_process(delta):
@@ -83,19 +81,16 @@ func _physics_process(delta):
 func enemy_touched(vel):
 	plant_holding = false
 	StateMachine.travel("flower_drop")
-	$Pickup/Plant.hide()
+	Plant.hide()
 	
 	emit_signal("drop_plant", global_position, vel)
 
 
 func _on_Detection_body_entered(body):
 	if body.name == "Plant":
-		print("detected")
-		#$AnimationPlayer.play("flower_detected", 0.1)
 		StateMachine.travel("flower_detected")
 		plant_detected = body
 	elif body.is_in_group("enemy"):
-		print("enemy touched")
 		enemy_touched(body.velocity)
 
 

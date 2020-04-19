@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://levels/Structure.gd" type="Script" id=2]
+[ext_resource path="res://plant/PlantPowerUp.gd" type="Script" id=3]
+[ext_resource path="res://plant/plant-light.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 26, 6 )
+
+[node name="PlantPowerUp" type="Node2D"]
+position = Vector2( 87, 74 )
+script = ExtResource( 3 )
+
+[node name="Body" type="RigidBody2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+mode = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Body"]
+polygon = PoolVector2Array( -38, -6, -24, 47, 21, 48, 41, -5, 65, -4, 43, 58, -38, 59, -56, -2 )
+script = ExtResource( 2 )
+
+[node name="Visual" type="Polygon2D" parent="Body/CollisionPolygon2D"]
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( -38, -6, -24, 47, 21, 48, 41, -5, 65, -4, 43, 58, -38, 59, -56, -2 )
+
+[node name="PlantDetect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlantDetect"]
+position = Vector2( -1, 42 )
+shape = SubResource( 1 )
+
+[node name="Light" type="Light2D" parent="."]
+position = Vector2( 7.5, -24 )
+scale = Vector2( 0.66, 1.02667 )
+texture = ExtResource( 4 )
+color = Color( 0.576471, 0.72549, 0.396078, 1 )
+energy = 2.5
+range_layer_min = -1
+[connection signal="body_entered" from="PlantDetect" to="." method="_on_PlantDetect_body_entered" flags=6]
