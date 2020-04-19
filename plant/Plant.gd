@@ -26,10 +26,6 @@ func _timer_timeout():
 	var from = PowerLight.texture_scale
 	var to = max(PowerLight.texture_scale - 0.5, 0.0)
 	
-	print(from)
-	print(to)
-	
-	print(" ")
 	
 	$Tween.interpolate_property(PowerLight, "texture_scale", from, to, 0.5, Tween.TRANS_BACK, Tween.EASE_OUT)
 	$Tween.start()

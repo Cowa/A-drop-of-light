@@ -15,8 +15,9 @@ _global_script_class_icons={
 
 [application]
 
-config/name="LDJAM-46"
+config/name="A drop of light."
 run/main_scene="res://levels/LevelTest.tscn"
+config/icon="res://plant/plant.png"
 
 [display]
 
