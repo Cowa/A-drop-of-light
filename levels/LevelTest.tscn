@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://plant/Plant.tscn" type="PackedScene" id=2]
@@ -57,6 +57,18 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="Curve2D" id=4]
+bake_interval = 200.0
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 10978, -447, 0, 0, 0, 0, 11257, -280, 0, 0, 0, 0, 11404, -42, 0, 0, 0, 0, 11798, 39, 0, 0, 0, 0, 12074, 137, 0, 0, 0, 0, 12222, 387 )
+}
+
+[sub_resource type="Curve2D" id=5]
+bake_interval = 200.0
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 11709, 1927, 0, 0, 0, 0, 11878, 1779, 0, 0, 0, 0, 12182, 1460 )
+}
+
 [node name="LevelTest" type="Node"]
 script = ExtResource( 6 )
 
@@ -88,6 +100,21 @@ texture = ExtResource( 11 )
 region_enabled = true
 region_rect = Rect2( 0, 10.306, 3280.13, 785 )
 
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D3"]
+position = Vector2( 3, 0 )
+polygon = PoolVector2Array( 12827, 683, 12732, 683, 12721, 782, 12648.2, 1862.99, 12093, 1880, 12029, 2003, 11889, 2026, 11681, 2102, 11812, 2215, 12140, 2168, 12979, 2198, 13367, 2144, 13513, 1988, 13869, 1836, 14123, 1715, 14173, 1434, 14282, 1481, 14452, 1627, 14702, 1601, 14854, 1516, 14599, 1377, 14313, 1270, 14166.7, 1229.79, 14175, 1155, 14029, 1129, 14039, 1050, 13815, 1043, 13781, 967, 13692, 960, 13678, 886, 13250, 860, 13203, 948, 13011, 965, 12946, 926 )
+script = ExtResource( 4 )
+
+[node name="Visual" type="Polygon2D" parent="StaticBody2D3/CollisionPolygon2D"]
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 12850, 1054, 12648.2, 1862.99, 12093, 1880, 12029, 2003, 11889, 2026, 11681, 2102, 11812, 2215, 12140, 2168, 12979, 2198, 13367, 2144, 13513, 1988, 13869, 1836, 14123, 1715, 14173, 1434, 14282, 1481, 14452, 1627, 14702, 1601, 14854, 1516, 14599, 1377, 14313, 1270, 14166.7, 1229.79, 14175, 1155, 14029, 1129, 14039, 1050, 13815, 1043, 13781, 967, 13692, 960, 13678, 886, 13250, 860, 13203, 948, 13011, 965, 12962, 1096 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
@@ -113,8 +140,8 @@ collision_mask = 0
 
 [node name="Structure" type="CollisionPolygon2D" parent="StaticBody2D"]
 modulate = Color( 0.0546875, 0.0546875, 0.0546875, 1 )
-position = Vector2( 130, 717 )
-polygon = PoolVector2Array( -830, 153, -1503, -963, -1146, -1175, -610, -491, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -967, -1440, -1954, -1060, -2162, 789, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 7868, 1103, 8517, 330, 7607, -187, 6260, 106, 4172, 57, 4061, -90, 3918, -109, 3933, -260, 3842, -286, 3835, -436, 3656, -444, 3656, -326, 3439, -309, 3416, -160, 3251, -158, 3236, 3, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 974, 169, 949.793, 102.431, 913, 70, 727, 78, 697.57, 139.135, 699.821, 219.568, 433, 265 )
+position = Vector2( 129, 718 )
+polygon = PoolVector2Array( -830, 153, -1503, -963, -1146, -1175, -610, -491, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -967, -1440, -1954, -1060, -2162, 789, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 7868, 1103, 8909, 1136, 9802, 1640, 10139, 1919, 10844, 2129, 11415, 2281, 12287, 2385, 13259, 2477, 13746, 2273, 14335, 1957, 15100, 1900, 14953, 1379, 15048, 1057, 14913, 961, 14679, 1098, 14698, 1174, 14297, 1278, 14047, 1310, 13978.2, 1434.69, 13869, 1467, 13851, 1541, 13731, 1573, 13707, 1661, 13389, 1685, 12830, 1785, 11918, 1723, 11516, 1716, 11264, 1585, 11259, 1328, 11540, 995, 12382, 324, 12030.4, 313.677, 12055, 205, 11909, 151, 11906, 39, 11462, -199, 11140, -453, 10274, -781, 9539, -926, 8466, -826, 8255, -759, 8240, -635, 8051, -605, 8082, -472, 7866, -444, 7872, -318, 7687, -305, 7656, -145, 7377, -116, 7329, 16, 6260, 106, 5455, -53, 4765, 35, 4172, 57, 4061, -90, 3918, -109, 3933, -260, 3842, -286, 3835, -436, 3656, -444, 3656, -326, 3439, -309, 3416, -160, 3251, -158, 3236, 3, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 974, 169, 949.793, 102.431, 913, 70, 727, 78, 697.57, 139.135, 699.821, 219.568, 433, 265 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
@@ -122,16 +149,16 @@ __meta__ = {
 
 [node name="Visual" type="Polygon2D" parent="StaticBody2D/Structure"]
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
-polygon = PoolVector2Array( -830, 153, -1503, -963, -1146, -1175, -610, -491, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -967, -1440, -1954, -1060, -2162, 789, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 7868, 1103, 8517, 330, 7607, -187, 6260, 106, 4172, 57, 4061, -90, 3918, -109, 3933, -260, 3842, -286, 3835, -436, 3656, -444, 3656, -326, 3439, -309, 3416, -160, 3251, -158, 3236, 3, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 974, 169, 949.793, 102.431, 913, 70, 727, 78, 697.57, 139.135, 699.821, 219.568, 433, 265 )
+polygon = PoolVector2Array( -830, 153, -1503, -963, -1146, -1175, -610, -491, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -967, -1440, -1954, -1060, -2162, 789, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 7868, 1103, 8909, 1136, 9802, 1640, 10139, 1919, 10844, 2129, 11415, 2281, 12287, 2385, 13259, 2477, 13746, 2273, 14335, 1957, 15100, 1900, 14953, 1379, 15048, 1057, 14913, 961, 14679, 1098, 14698, 1174, 14297, 1278, 14047, 1310, 13978.2, 1434.69, 13869, 1467, 13851, 1541, 13731, 1573, 13707, 1661, 13389, 1685, 12830, 1785, 11918, 1723, 11516, 1716, 11264, 1585, 11259, 1328, 11540, 995, 12382, 324, 12030.4, 313.677, 12055, 205, 11909, 151, 11906, 39, 11462, -199, 11140, -453, 10274, -781, 9539, -926, 8466, -826, 8255, -759, 8240, -635, 8051, -605, 8082, -472, 7866, -444, 7872, -318, 7687, -305, 7656, -145, 7377, -116, 7329, 16, 6260, 106, 5455, -53, 4765, 35, 4172, 57, 4061, -90, 3918, -109, 3933, -260, 3842, -286, 3835, -436, 3656, -444, 3656, -326, 3439, -309, 3416, -160, 3251, -158, 3236, 3, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 974, 169, 949.793, 102.431, 913, 70, 727, 78, 697.57, 139.135, 699.821, 219.568, 433, 265 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( -610, 744 )
+position = Vector2( 12284, 815 )
 
 [node name="Plant" parent="." instance=ExtResource( 2 )]
-position = Vector2( 948, 738 )
+position = Vector2( 9218, -330 )
 
 [node name="Shadow" parent="." instance=ExtResource( 5 )]
 position = Vector2( 4258, -528 )
@@ -140,6 +167,14 @@ patrol_path = NodePath("../Path2D")
 [node name="Shadow2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 6245, 144 )
 patrol_path = NodePath("../Path2D2")
+
+[node name="Shadow3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 11615, -286 )
+patrol_path = NodePath("../Path2D3")
+
+[node name="Shadow4" parent="." instance=ExtResource( 5 )]
+position = Vector2( 11630, 1948 )
+patrol_path = NodePath("../Path2D4")
 
 [node name="Details" type="Node" parent="."]
 
@@ -201,6 +236,9 @@ position = Vector2( 3108, 654 )
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource( 1 )
 script = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2( 4261, -310 )
@@ -208,6 +246,9 @@ rotation = 2.86501
 
 [node name="Path2D2" type="Path2D" parent="."]
 curve = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D2"]
 position = Vector2( 6390, 147 )
@@ -223,8 +264,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -1574.0
 margin_right = -1574.0
-color = Color( 0, 0, 0, 1 )
+color = Color( 0, 0, 0, 0 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -251,6 +293,29 @@ margin_right = 459.0
 margin_bottom = 99.0
 text = "Drop to Recharge
 "
+
+[node name="PlantPowerUp3" parent="." instance=ExtResource( 13 )]
+position = Vector2( 8646, -168 )
+
+[node name="PlantPowerUp4" parent="." instance=ExtResource( 13 )]
+position = Vector2( 13104, 903 )
+
+[node name="PlantPowerUp5" parent="." instance=ExtResource( 13 )]
+position = Vector2( 13663, 2339 )
+
+[node name="Path2D3" type="Path2D" parent="."]
+curve = SubResource( 4 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D3"]
+position = Vector2( 10978, -447 )
+rotation = 0.535849
+
+[node name="Path2D4" type="Path2D" parent="."]
+curve = SubResource( 5 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D4"]
+position = Vector2( 11709, 1927 )
+rotation = -0.717681
 
 [editable path="HelperHold2"]
 

@@ -87,6 +87,7 @@ func enemy_touched(vel):
 	plant_holding = false
 	StateMachine.travel("flower_drop")
 	Plant.hide()
+	plant_world.sync_with(Plant)
 	
 	emit_signal("drop_plant", global_position, vel)
 
@@ -95,7 +96,7 @@ func _on_Detection_body_entered(body):
 	if body.name == "Plant":
 		StateMachine.travel("flower_detected")
 		plant_detected = body
-	elif body.is_in_group("enemy"):
+	elif body.is_in_group("enemy") and plant_holding:
 		$AudioPlayer.play()
 		enemy_touched(body.velocity)
 
