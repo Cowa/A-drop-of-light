@@ -23,12 +23,20 @@ func stop_timer():
 
 
 func _timer_timeout():
-	$Tween.interpolate_property(PowerLight, "texture_scale", PowerLight.texture_scale, max(PowerLight.texture_scale - 0.5, 0), 0.5, Tween.TRANS_BACK, Tween.EASE_OUT)
+	var from = PowerLight.texture_scale
+	var to = max(PowerLight.texture_scale - 0.5, 0.0)
+	
+	print(from)
+	print(to)
+	
+	print(" ")
+	
+	$Tween.interpolate_property(PowerLight, "texture_scale", from, to, 0.5, Tween.TRANS_BACK, Tween.EASE_OUT)
 	$Tween.start()
 	
 	yield($Tween, "tween_all_completed")
 	
-	if PowerLight.texture_scale < 0:
+	if PowerLight.texture_scale <= 0.00001:
 		print("dead")
 		emit_signal("dead")
 	else:
@@ -70,8 +78,9 @@ func change_mode(n_mode, velocity):
 
 
 func more_life():
+	var to = min(PowerLight.texture_scale + 1, 2.5)
 	$Timer.stop()
-	$Tween.interpolate_property(PowerLight, "texture_scale", PowerLight.texture_scale, PowerLight.texture_scale + 1, 0.75, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$Tween.interpolate_property(PowerLight, "texture_scale", PowerLight.texture_scale, to, 0.75, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 	$Tween.start()
 	yield($Tween, "tween_all_completed")
 	$Timer.start()

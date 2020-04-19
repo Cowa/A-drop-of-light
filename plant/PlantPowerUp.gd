@@ -16,5 +16,5 @@ func _on_PlantDetect_body_entered(body):
 	else:
 		body.endless_life()
 		emit_signal("final_reached")
-		print("end")
+		$AudioPlayer.play()
 	

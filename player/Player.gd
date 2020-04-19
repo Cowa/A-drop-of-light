@@ -18,6 +18,8 @@ var first_pickup = true
 
 var plant_world = null
 
+var can_play = true
+
 ###
 
 
@@ -32,6 +34,8 @@ func _ready():
 
 
 func _input(event):
+	if not can_play: return
+	
 	velocity.x = 0
 	
 	var right = Input.is_action_pressed('ui_right')
@@ -48,12 +52,14 @@ func _input(event):
 	if left and not is_on_wall():
 		velocity.x -= run_speed
 	
+	# Pick
 	if Input.is_action_just_pressed("ui_select") and not jumping and plant_detected:
 		plant_world = plant_detected
 		emit_signal("pick_plant")
 		plant_holding = true
 		Plant.show()
 		Plant.sync_with(plant_world)
+		#plant_world.sync_with(Plant)
 		
 		if first_pickup:
 			Plant.start_timer()
@@ -65,7 +71,8 @@ func _input(event):
 		StateMachine.travel("flower_drop")
 		Plant.hide()
 		#Plant.stop_timer()
-		plant_world.sync_with(Plant)
+		
+		Plant.sync_with(plant_world)
 		
 		emit_signal("drop_plant", global_position, Vector2.ZERO)
 
