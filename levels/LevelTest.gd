@@ -2,9 +2,13 @@ extends Node
 
 var first_pickup = true
 
+onready var Final = $Final
+
 func _ready():
 	$Player.connect("drop_plant", self, "_on_drop_plant")
 	$Player.connect("pick_plant", self, "_on_pick_plant")
+	
+	Final.connect("final_reached", self, "_the_end")
 	pass
 
 
@@ -25,3 +29,10 @@ func _on_pick_plant():
 	
 	first_pickup = false
 
+
+func _the_end():
+	$Timer.wait_time = 4
+	$Timer.start()
+	yield($Timer, "timeout")
+	$AnimationPlayer.play("end")
+	
