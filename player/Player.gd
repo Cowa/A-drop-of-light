@@ -33,7 +33,7 @@ func _ready():
 		Plant.hide()
 
 
-func _input(event):
+func get_input():
 	if not can_play: return
 	
 	velocity.x = 0
@@ -53,7 +53,7 @@ func _input(event):
 		velocity.x -= run_speed
 	
 	# Pick
-	if Input.is_action_just_pressed("ui_select") and not jumping and plant_detected:
+	if Input.is_action_just_pressed("ui_select") and plant_detected:
 		plant_world = plant_detected
 		emit_signal("pick_plant")
 		plant_holding = true
@@ -66,7 +66,7 @@ func _input(event):
 		
 		first_pickup = false
 		StateMachine.travel("flower_picking")
-	elif Input.is_action_just_pressed("ui_select") and not jumping and plant_holding:
+	elif Input.is_action_just_pressed("ui_select") and plant_holding:
 		plant_holding = false
 		StateMachine.travel("flower_drop")
 		Plant.hide()
@@ -78,16 +78,21 @@ func _input(event):
 
 
 func _physics_process(delta):
+	get_input()
 	velocity.y += gravity * delta
 	
-	if jumping and is_on_floor():
-		jumping = false
+#	if is_on_floor():
+#		jumping = false
 	
 	# Prevent sliding
 	if is_on_floor() and not input_movement:
 		velocity.x = 0
 	
-	velocity = move_and_slide(velocity, Vector2.UP, true, 32, deg2rad(46))
+	var snap = Vector2(0, 32)
+	
+	if jumping: snap = Vector2()
+	
+	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP, true, 4, deg2rad(46))
 
 
 func enemy_touched(vel):

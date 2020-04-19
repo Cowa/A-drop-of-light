@@ -755,7 +755,6 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
-jump_speed = -1000
 
 [node name="Body" type="Sprite" parent="."]
 modulate = Color( 0.109804, 0.109804, 0.109804, 1 )
