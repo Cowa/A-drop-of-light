@@ -166,8 +166,8 @@ __meta__ = {
 }
 
 [node name="Mouth" type="Sprite" parent="."]
-position = Vector2( 0, 51.6654 )
-scale = Vector2( 1, 0.833308 )
+position = Vector2( 0, 56.6683 )
+scale = Vector2( 1, 0.933367 )
 texture = ExtResource( 2 )
 
 [node name="TestPath" type="Path2D" parent="."]
@@ -200,6 +200,7 @@ parameters/player_detected/Blend2/blend_amount = 0.2
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+volume_db = 12.0
 autoplay = true
 [connection signal="area_entered" from="VisionArea" to="." method="_on_VisionArea_area_entered"]
 [connection signal="area_exited" from="VisionArea" to="." method="_on_VisionArea_area_exited"]

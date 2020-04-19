@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://plant/Plant.tscn" type="PackedScene" id=2]
@@ -25,6 +25,35 @@ _data = {
 bake_interval = 100.0
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 6390, 147, 0, 0, 0, 0, 5988, 220, 0, 0, 0, 0, 5159, 244, 0, 0, 0, 0, 4786, 137, 0, 0, 0, 0, 4612, 252 )
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "opening"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Opening:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Opening")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
 }
 
 [node name="LevelTest" type="Node"]
@@ -92,7 +121,7 @@ __meta__ = {
 
 [node name="Visual" type="Polygon2D" parent="StaticBody2D/Structure"]
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
-polygon = PoolVector2Array( -830, 153, -1503, -963, -1146, -1175, -610, -491, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -967, -1440, -1954, -1060, -2162, 789, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 7868, 1103, 8517, 330, 7607, -187, 6260, 106, 4172, 57, 4061, -90, 3918, -109, 3933, -260, 3842, -286, 3838, -456, 3656, -444, 3656, -326, 3439, -309, 3416, -160, 3251, -158, 3236, 3, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 974, 169, 949.793, 102.431, 913, 70, 727, 78, 697.57, 139.135, 699.821, 219.568, 433, 265 )
+polygon = PoolVector2Array( -830, 153, -1503, -963, -1146, -1175, -610, -491, 105, -441, 222.878, -599.654, 264, -655, 12, -1220, -967, -1440, -1954, -1060, -2162, 789, -79, 895, 1366, 1084, 2972, 635, 4395, 848, 7868, 1103, 8517, 330, 7607, -187, 6260, 106, 4172, 57, 4061, -90, 3918, -109, 3933, -260, 3842, -286, 3835, -436, 3656, -444, 3656, -326, 3439, -309, 3416, -160, 3251, -158, 3236, 3, 2817, -24, 1780, 195, 1524, 155, 1181, 150, 974, 169, 949.793, 102.431, 913, 70, 727, 78, 697.57, 139.135, 699.821, 219.568, 433, 265 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -140,14 +169,6 @@ position = Vector2( 1808, 887 )
 modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 2548, 782 )
 
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource( 1 )
-script = ExtResource( 9 )
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2( 3169, -156 )
-rotation = 3.00038
-
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( -1070.5, -133 )
 scale = Vector2( 7.54, 7.92 )
@@ -176,6 +197,14 @@ position = Vector2( 3108, 654 )
 
 [node name="Tween" type="Tween" parent="."]
 
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 1 )
+script = ExtResource( 9 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2( 3169, -156 )
+rotation = 3.00038
+
 [node name="Path2D2" type="Path2D" parent="."]
 curve = SubResource( 2 )
 
@@ -185,4 +214,19 @@ rotation = 2.96195
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
+volume_db = 12.0
 autoplay = true
+
+[node name="Opening" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1574.0
+margin_right = -1574.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "opening"
+anims/opening = SubResource( 3 )
